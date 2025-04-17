@@ -77,11 +77,11 @@ export default function App() {
   const popBalloon = (id) => {
     const audio = new Audio('/pop.mp3');
     audio.play();
-  
+
     setBalloons(prev =>
       prev.map(b => b.id === id ? { ...b, popped: true } : b)
     );
-  
+
     const poppedBalloon = balloons.find(b => b.id === id);
     setFloatingNumbers(prev => [
       ...prev,
@@ -92,10 +92,10 @@ export default function App() {
         y: poppedBalloon.y
       }
     ]);
-  
+
     setPopCount(prev => prev + 1);
   };
-  
+
 
   // useEffect(() => {
   //   if (lightsOn) {
@@ -111,18 +111,18 @@ export default function App() {
       document.body.style.background = '#fffbe7';
       document.body.style.color = '#333';
       document.body.style.transition = 'background 1s ease-in-out, color 1s ease-in-out';
-  
+
       // Optional: Add a soft glow effect to simulate lights turning on
       document.body.style.boxShadow = 'inset 0 0 60px rgba(255, 245, 180, 0.5)';
     } else {
       document.body.style.background = '#1a1a1a';
       document.body.style.color = '#f0f0f0';
       document.body.style.transition = 'background 1s ease-in-out, color 1s ease-in-out';
-  
+
       // Remove glow when lights are off
       document.body.style.boxShadow = 'none';
     }
-  }, [lightsOn]);  
+  }, [lightsOn]);
 
   const resetAll = () => {
     setStep(0);
@@ -152,7 +152,8 @@ export default function App() {
 
   return (
     <div className={`app ${lightsOn ? 'light-on' : 'dark-mode'}`}>
-      <audio id="bday-audio" src="/music.mp3" />
+      {/* <audio id="bday-audio" src="/music.mp3" /> */}
+      <audio id="bday-audio" src={`${process.env.PUBLIC_URL}/music.mp3`} />
       {showConfetti && <div className="confetti">🎊🎉✨🎈</div>}
 
       {step === 0 && (
@@ -202,7 +203,7 @@ export default function App() {
                 style={{ left: `${b.x}%`, top: `${b.y}%`, fontSize: '80px' }}
                 onClick={() => !b.popped && popBalloon(b.id)}
               >
-                
+
               </div>
             ))}
 
@@ -247,7 +248,7 @@ export default function App() {
         </div>
       )} */}
 
-{/* {cakeFlavor && !cakeCut && (
+      {/* {cakeFlavor && !cakeCut && (
   <div className="page">
     <h2>Here’s your {cakeFlavor} cake! 🎂</h2>
     <div
@@ -287,52 +288,53 @@ export default function App() {
     )}
   </div>
 )} */}
-{cakeFlavor && !cakeCut && (
-  <div className="page">
-    <h2>Since we don't have the budget nor the facility to get an actual cake, Here’s your virtual {cakeFlavor} cake! 🎂</h2>
+      {cakeFlavor && !cakeCut && (
+        <div className="page">
+          <h2>Since we don't have the budget nor the facility to get an actual cake, Here’s your virtual {cakeFlavor} cake! 🎂</h2>
 
-    {/* Cake and Candles Section */}
-    <div
-      className="cake-wrapper"
-      onDrop={handleDrop}
-      onDragOver={allowDrop}
-      ref={cakeRef}
-    >
-      <img
-        src={`/${cakeFlavor.toLowerCase()}.jpg`}
-        alt="Cake"
-        className="cake-img"
-      />
-      {[...Array(candles)].map((_, i) => (
-        <div key={i} className="candle" style={{ left: `${40 + i * 10}%` }}>
-          🕯️
-        </div>
-      ))}
-    </div>
+          {/* Cake and Candles Section */}
+          <div
+            className="cake-wrapper"
+            onDrop={handleDrop}
+            onDragOver={allowDrop}
+            ref={cakeRef}
+          >
+            <img
+              // src={`/${cakeFlavor.toLowerCase()}.jpg`}
+              src={`${process.env.PUBLIC_URL}/${cakeFlavor.toLowerCase()}.jpg`}
+              alt="Cake"
+              className="cake-img"
+            />
+            {[...Array(candles)].map((_, i) => (
+              <div key={i} className="candle" style={{ left: `${40 + i * 10}%` }}>
+                🕯️
+              </div>
+            ))}
+          </div>
 
-    {/* Buttons below the cake */}
-    <div className="mt-4 flex flex-col items-center gap-2">
-      {candles < 3 && (
-        <button
-          onClick={() => setCandles(c => c + 1)}
-          className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-4 py-2 rounded-lg shadow"
-        >
-          Add Candle
-        </button>
-      )}
+          {/* Buttons below the cake */}
+          <div className="mt-4 flex flex-col items-center gap-2">
+            {candles < 3 && (
+              <button
+                onClick={() => setCandles(c => c + 1)}
+                className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-4 py-2 rounded-lg shadow"
+              >
+                Add Candle
+              </button>
+            )}
 
-      {candles === 3 && !showKnife && (
-        <button
-          onClick={() => setShowKnife(true)}
-          className="bg-red-400 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-lg shadow"
-        >
-          Click to get a Knife
-        </button>
-      )}
-    </div>
+            {candles === 3 && !showKnife && (
+              <button
+                onClick={() => setShowKnife(true)}
+                className="bg-red-400 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-lg shadow"
+              >
+                Click to get a Knife
+              </button>
+            )}
+          </div>
 
-    {/* Knife appears separately */}
-    {/* {showKnife && (
+          {/* Knife appears separately */}
+          {/* {showKnife && (
       <img
         src="/knife.jpg"
         alt="Knife"
@@ -341,30 +343,37 @@ export default function App() {
         onDragStart={handleDragStart}
       />
     )} */}
-    {showKnife && (
-  <div className="mt-4 flex flex-col items-center gap-2">
-    <p className="text-lg font-medium text-gray-700">
-      Now drag the knife to cut the cake and see some magic! 🎉
-    </p>
-    <img
-      src="/knife.jpg"
-      alt="Knife"
-      className="knife-img"
-      draggable="true"
-      onDragStart={handleDragStart}
-    />
-  </div>
-)}
+          {showKnife && (
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <p className="text-lg font-medium text-gray-700">
+                Now drag the knife to cut the cake and see some magic! 🎉
+              </p>
+              <img
+                // src="/knife.jpg"
+                src={`${process.env.PUBLIC_URL}/knife.jpg`}
+                alt="Knife"
+                className="knife-img"
+                draggable="true"
+                onDragStart={handleDragStart}
+              />
+            </div>
+          )}
 
-  </div>
-)}
+        </div>
+      )}
 
 
       {cakeFlavor && cakeCut && (
         <div className="page">
           <h2>Same excuse as last slide and here's your virtual slice of {cakeFlavor} cake! 🍰</h2>
           <h2>Enjoy it virtually, wohooo</h2>
-          <img src={`/${cakeFlavor.toLowerCase()}-slice.jpg`} alt="Cake Slice" className="cake-img" />
+          {/* <img src={`/${cakeFlavor.toLowerCase()}-slice.jpg`} alt="Cake Slice" className="cake-img" /> */}
+          <img
+            src={`${process.env.PUBLIC_URL}/${cakeFlavor.toLowerCase()}-slice.jpg`}
+            alt="Cake Slice"
+            className="cake-img"
+          />
+
           <h3>Happy Birthday, Gurlll 🎊🎈🎉</h3>
           <p>Wishing you a day filled with love, laughter, and lots of work, hehe!!!</p>
           <button onClick={resetAll} className="floating-reset-button">🌟 Wanna see it again? Click here!</button>
