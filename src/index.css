@@ -1,0 +1,213 @@
+/* index.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #111;
+  color: white;
+  height: 100%;
+}
+
+.app {
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page {
+  margin-top: 100px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 12px;
+  border: none;
+  background-color: #ff69b4;
+  color: white;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #ff85c1;
+}
+
+.light-on {
+  background-color: #fffce6;
+  color: #333;
+}
+
+.balloon-area {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* .balloon {
+  font-size: 30px;
+  margin: 10px;
+  cursor: pointer;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.2s;
+}
+
+.balloon.popped {
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.4s ease;
+} */
+
+/* .balloon {
+  border-radius: 50% 50% 50% 50%;
+  background: radial-gradient(circle at 30% 30%, #ff7eb9, #ff006e);
+  width: 60px;
+  height: 80px;
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.balloon.popped {
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.balloon {
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff7eb9, #ff006e); /* Pinkish gradient */
+  width: 80px;  /* Larger to give a balloon look */
+  height: 100px; /* Taller to match typical balloon proportions */
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow transition */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  transform: translateY(-20px); /* Floating effect */
+}
+
+.balloon:active {
+  transform: translateY(0px); /* Balloons bounce down slightly when clicked */
+}
+
+.balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; /* Position the string below the balloon */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px; /* Thin string */
+  height: 50px; /* Length of the string */
+  background-color: #000; /* Dark string */
+}
+
+
+
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.cake-img {
+  margin-top: 20px;
+  max-width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.confetti {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  font-size: 24px;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+.heart {
+  position: fixed;
+  width: 15px;
+  height: 15px;
+  background: pink;
+  transform: rotate(45deg);
+  animation: float 1s ease-out forwards;
+  z-index: 9999;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: pink;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -7.5px;
+  left: 0;
+}
+
+.heart::after {
+  left: -7.5px;
+  top: 0;
+}
+
+@keyframes float {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) rotate(45deg);
+  }
+}
+
+.knife-img {
+  width: 80px;
+  margin-top: 20px;
+  cursor: grab;
+  animation: floatKnife 1.2s ease-in-out;
+}
+
+@keyframes floatKnife {
+  0% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.floating-number {
+  position: absolute;
+  animation: floatUp 1.2s ease-out forwards;
+  font-size: 24px;
+  color: #ff4081;
+}
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-50px); opacity: 0; }
+}
+
